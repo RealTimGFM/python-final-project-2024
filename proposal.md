@@ -13,3 +13,11 @@ Anaconda and SQLite.
 - Weeks 8-12: Continue working on project, making regular commits
 - Week 13: Project week - focused development time in class
 - Week 14: Project presentation to classmates and instructor
+
+
+
+Project Type: Game
+Brief Description: It's a game for kids to learn about business and arbitrage. So they can have some basic knowledge about how to do business. 
+Key Features: [UNDECIDED]
+Out of Scope: It will not teach you EVERYTHING about business and money. IT'S JUST A GAME, HAVE FUN
+Technologies: [UNDECIDED] Anaconda and SQLite. 
