@@ -1,11 +1,10 @@
-# Traveller Game
+# Simple ATM Application
 ## Project Description
-A game about a traveller who travels to difference cities and tries to become rich. He buys from one city and sells to another city which has better price. 
+This is an application about an ATM in a bank. It has almost all the functionalities of an ATM, withdraw, deposit, check account, help,... 
 ## Main Idea
-It's a game for kids to learn about business and arbitrage. So they can have some basic knowledge about how to do business. 
+This is just a simple ATM application with all the functionalities.
 ## Technologies
-[UNDECIDED]
-Anaconda and SQLite. 
+Visual Studio 2022 and Microsoft SQL (SSMS 20)
 ## Project Timeline
 - Week 4: Project initialization and setup
 - Week 5: First meaningful commit beyond initial setup
@@ -13,11 +12,3 @@ Anaconda and SQLite.
 - Weeks 8-12: Continue working on project, making regular commits
 - Week 13: Project week - focused development time in class
 - Week 14: Project presentation to classmates and instructor
-
-
-
-Project Type: Game
-Brief Description: It's a game for kids to learn about business and arbitrage. So they can have some basic knowledge about how to do business. 
-Key Features: [UNDECIDED]
-Out of Scope: It will not teach you EVERYTHING about business and money. IT'S JUST A GAME, HAVE FUN
-Technologies: [UNDECIDED] Anaconda and SQLite. 
