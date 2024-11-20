@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4caf50;
+        }
+
+        p {
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 4px;
+
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        a.button {
+            display: inline-block;
+            width: auto;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            border-radius: 4px;
+            font-size: 1.1em;
+            margin: 10px;
+            text-align: center;
+        }
+
+        a.button:hover {
+            background-color: #1976D2;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            h2 {
+                font-size: 1.6em;
+            }
+
+            p {
+                font-size: 1em;
+            }
+
+            form {
+                padding: 15px;
+                margin: 0 10px;
+            }
+
+            input[type="number"] {
+                font-size: 1em;
+            }
+
+            button {
+                font-size: 1em;
+            }
+        }
+
+        .flash-messages {
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flash.success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 1px solid #c3e6cb;
+        }
+
+        .flash.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <h2>Welcome to Your Account</h2>
+    <p>Balance: ${{ balance }}</p>
+    <form action="{{ url_for('withdraw') }}" method="post">
+        <input type="number" name="amount" placeholder="Amount" required>
+        <button type="submit">Withdraw</button>
+    </form>
+    <form action="{{ url_for('deposit') }}" method="post">
+        <input type="number" name="amount" placeholder="Amount" required>
+        <button type="submit">Deposit</button>
+    </form>
+    <div class="button-container">
+        <a href="{{ url_for('logout') }}" class="button">Logout</a>
+        <a href="{{ url_for('graph') }}" class="button">View Spending Graph</a>
+    </div>
+
+</body>
+
+</html>
