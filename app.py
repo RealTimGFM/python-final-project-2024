@@ -6,12 +6,40 @@ import matplotlib.pyplot as plt
 import io
 import base64
 import bcrypt
+from functools import wraps
+from flask import request, jsonify
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 # Initialize Flask app
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # for session management
+
+# Generate a cryptographically secure secret key
+salt = os.urandom(16)  # Random salt
+password = b"passwd" 
+kdf = PBKDF2HMAC(
+    algorithm=hashes.SHA256(),
+    length=32,
+    salt=salt,
+    iterations=100000,
+    backend=default_backend()
+)
+key = kdf.derive(password)
+
+# Set the derived key as the Flask secret_key
+app.secret_key = key.hex()
 
 # Database setup
 DB_PATH = 'atm_database.db'
+#check IP blocked 
+BLOCKED_IPS = {'127.0.0.9'} #change to .1 if want to be blocked
+def check_ip(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if request.remote_addr in BLOCKED_IPS:
+            return jsonify({'error': 'blocked'}), 403  
+        return f(*args, **kwargs) 
+    return wrapper
 
 def init_db():
     """Initialize the database and create necessary tables if they don't exist."""
@@ -44,6 +72,12 @@ def setup():
 @app.route('/')
 def index():
     return redirect(url_for('login'))
+
+#show secret key
+@app.route('/show_secret_key')
+def show_secret_key():
+    # For testing purposes, showing the secret key
+    return f'Secure secret key is: {app.secret_key}'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -87,6 +121,7 @@ def signup():
     return render_template('signup.html')
 
 @app.route('/main')
+@check_ip
 def main():
     if 'user_id' not in session:
         return redirect(url_for('login'))
