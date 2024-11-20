@@ -11,17 +11,20 @@ from flask import request, jsonify
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from dotenv import load_dotenv
+
+load_dotenv()
 # Initialize Flask app
 app = Flask(__name__)
-
+secret_key = os.getenv('SECRET_KEY')
+password = os.getenv('PASSWORD').encode('utf-8')
 # Generate a cryptographically secure secret key
-salt = os.urandom(16)  # Random salt
-password = b"passwd" 
+salt = os.urandom(16)
 kdf = PBKDF2HMAC(
-    algorithm=hashes.SHA256(),
-    length=32,
+    algorithm=hashes.SHA256(),  # SHA256 hash algorithm
+    length=32,                  # Desired length of the derived key
     salt=salt,
-    iterations=100000,
+    iterations=100000,          # Number of iterations to make the key harder to compute
     backend=default_backend()
 )
 key = kdf.derive(password)
